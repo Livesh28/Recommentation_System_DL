@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPulse AI - Sustainable Recommendation Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-leaf pulse-icon"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>EcoPulse AI</h1>
+                    <span>Sustainable Recommendations</span>
+                </div>
+            </div>
+
+            <!-- User Selector Panel -->
+            <div class="user-selector-panel">
+                <label for="user-selector"><i class="fa-solid fa-user-circle"></i> Active User Profile</label>
+                <div class="select-wrapper">
+                    <select id="user-selector">
+                        <option value="" disabled selected>Loading users...</option>
+                    </select>
+                </div>
+                <p class="user-hint">Recommendations will dynamically adapt to this user's clicks and preferences in real-time.</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" id="nav-dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#catalog" class="nav-item" id="nav-catalog">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Explore Products</span>
+                </a>
+                <a href="#personalized" class="nav-item" id="nav-personalized">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Personalized Portal</span>
+                </a>
+                <a href="#predictor" class="nav-item" id="nav-predictor">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Eco Predictor</span>
+                </a>
+                <a href="#weights" class="nav-item" id="nav-weights">
+                    <i class="fa-solid fa-gears"></i>
+                    <span>Algorithm Weights</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Status: <span class="status-online"><i class="fa-solid fa-circle"></i> Engine Active</span></p>
+                <span class="version">v1.0.0</span>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h2 id="page-title">Dashboard Overview</h2>
+                    <p id="page-subtitle">Real-time carbon and eco-sustainability analytics.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="user-badge" id="active-user-badge">
+                        <i class="fa-solid fa-user-tag"></i>
+                        <span id="header-user-id">Guest</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+                
+                <!-- 1. DASHBOARD TAB -->
+                <section id="tab-dashboard" class="tab-content active">
+                    <!-- KPI Analytics Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card" id="kpi-products">
+                            <div class="kpi-icon-wrapper leaf-bg">
+                                <i class="fa-solid fa-tags"></i>
+                            </div>
+                            <div class="kpi-info">
+                                <h3>500</h3>
+                                <p>Cataloged Eco Products</p>
+                            </div>
+                            <div class="kpi-glow green"></div>
+                        </div>
+                        <div class="kpi-card" id="kpi-sustainability">
+                            <div class="kpi-icon-wrapper index-bg">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <div class="kpi-info">
+                                <h3 id="stat-sustainability">-</h3>
+                                <p>Avg Sustainability Index</p>
+                            </div>
+                            <div class="kpi-glow emerald"></div>
+                        </div>
+                        <div class="kpi-card" id="kpi-carbon">
+                            <div class="kpi-icon-wrapper carbon-bg">
+                                <i class="fa-solid fa-cloud-arrow-down"></i>
+                            </div>
+                            <div class="kpi-info">
+                                <h3 id="stat-carbon">-</h3>
+                                <p>Avg Carbon Footprint (g)</p>
+                            </div>
+                            <div class="kpi-glow teal"></div>
+                        </div>
+                        <div class="kpi-card" id="kpi-water">
+                            <div class="kpi-icon-wrapper water-bg">
+                                <i class="fa-solid fa-droplet"></i>
+                            </div>
+                            <div class="kpi-info">
+                                <h3 id="stat-water">-</h3>
+                                <p>Avg Water Usage (L)</p>
+                            </div>
+                            <div class="kpi-glow blue"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Quick Catalog -->
+                    <div class="dashboard-panel">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-star"></i> Featured Sustainable Products</h3>
+                            <button class="btn btn-secondary text-btn" id="btn-view-all-featured">View Full Catalog <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                        <div class="product-grid" id="featured-products-grid">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Category Insights -->
+                    <div class="insights-grid">
+                        <div class="insights-card">
+                            <h3><i class="fa-solid fa-chart-column"></i> Category Carbon vs Water Tradeoff</h3>
+                            <div class="insights-content">
+                                <div class="chart-mockup">
+                                    <div class="chart-bars" id="dashboard-chart">
+                                        <!-- Injected dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="insights-card">
+                            <h3><i class="fa-solid fa-recycle"></i> Key Eco Materials</h3>
+                            <div class="materials-badges" id="dashboard-materials">
+                                <!-- Injected dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. CATALOG TAB -->
+                <section id="tab-catalog" class="tab-content">
+                    <!-- Filter and Search Row -->
+                    <div class="filter-panel">
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="catalog-search" placeholder="Search product name or material...">
+                        </div>
+                        <div class="filter-group">
+                            <div class="select-wrapper">
+                                <select id="catalog-filter-category">
+                                    <option value="All">All Categories</option>
+                                </select>
+                            </div>
+                            <div class="select-wrapper">
+                                <select id="catalog-filter-material">
+                                    <option value="All">All Materials</option>
+                                </select>
+                            </div>
+                            <div class="slider-filter">
+                                <label for="catalog-filter-eco"><i class="fa-solid fa-leaf"></i> Min Eco Score: <span id="eco-score-val">0.0</span></label>
+                                <input type="range" id="catalog-filter-eco" min="0" max="5" step="0.5" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="catalog-results-header">
+                        <p id="catalog-results-count">Showing 0 products</p>
+                        <div class="pagination-controls">
+                            <button class="btn btn-secondary btn-icon" id="catalog-prev-page" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                            <span id="catalog-page-num">Page 1</span>
+                            <button class="btn btn-secondary btn-icon" id="catalog-next-page" disabled><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="product-grid" id="catalog-products-grid">
+                        <!-- Injected dynamically -->
+                    </div>
+                </section>
+
+                <!-- 3. PERSONALIZED PORTAL TAB -->
+                <section id="tab-personalized" class="tab-content">
+                    <div class="personalized-layout">
+                        <!-- Left Column: User Profile Details -->
+                        <div class="user-profile-panel">
+                            <h3><i class="fa-solid fa-address-card"></i> User Interest Summary</h3>
+                            <div class="profile-card">
+                                <div class="profile-header">
+                                    <div class="profile-avatar"><i class="fa-solid fa-user-gear"></i></div>
+                                    <div>
+                                        <h4 id="profile-user-id">Select Profile</h4>
+                                        <span class="user-status-badge">Embeddings Configured</span>
+                                    </div>
+                                </div>
+                                <div class="profile-details" id="profile-interests-details">
+                                    <p class="empty-state-text">Select a user profile from the sidebar to analyze user preferences and generate custom hybrid recommendations.</p>
+                                </div>
+                            </div>
+
+                            <!-- Hybrid Algorithm Customizer -->
+                            <div class="weights-quick-adjust">
+                                <h3><i class="fa-solid fa-sliders"></i> Hybrid Weight Tuning</h3>
+                                <div class="slider-group">
+                                    <div class="slider-item">
+                                        <div class="slider-labels">
+                                            <span>Semantic Relevance</span>
+                                            <span class="weight-percent" id="weight-semantic-val">40%</span>
+                                        </div>
+                                        <input type="range" id="weight-semantic" min="0" max="100" value="40">
+                                    </div>
+                                    <div class="slider-item">
+                                        <div class="slider-labels">
+                                            <span>User Preference Match</span>
+                                            <span class="weight-percent" id="weight-personal-val">30%</span>
+                                        </div>
+                                        <input type="range" id="weight-personal" min="0" max="100" value="30">
+                                    </div>
+                                    <div class="slider-item">
+                                        <div class="slider-labels">
+                                            <span>Sustainability Rank</span>
+                                            <span class="weight-percent" id="weight-sustainability-val">30%</span>
+                                        </div>
+                                        <input type="range" id="weight-sustainability" min="0" max="100" value="30">
+                                    </div>
+                                </div>
+                                <div class="weight-total-warning" id="weight-total-warning" style="display: none;">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> Weights will be automatically normalized to sum to 100%.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Results -->
+                        <div class="recommendations-results-panel">
+                            <div class="hybrid-search-bar">
+                                <div class="search-input-wrapper">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                    <input type="text" id="hybrid-query" placeholder="Fulfill a query: e.g., 'warm clothing for winter' or 'eco-friendly water bottle'...">
+                                    <button class="btn btn-primary" id="btn-hybrid-search">Generate Recommendations</button>
+                                </div>
+                                <div class="search-suggestions">
+                                    <span>Try searching:</span>
+                                    <button class="suggestion-tag">organic water bottle</button>
+                                    <button class="suggestion-tag">sustainable footwear</button>
+                                    <button class="suggestion-tag">zero waste kitchenware</button>
+                                </div>
+                            </div>
+
+                            <div class="panel-header">
+                                <h3 id="recommendations-title"><i class="fa-solid fa-list-check"></i> Personalized Recommendations</h3>
+                            </div>
+                            <div class="product-grid" id="recommendations-grid">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-sparkles"></i>
+                                    <h4>Enter a search query or adjust weights to generate personalized hybrid recommendation results.</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. ECO PREDICTOR TAB -->
+                <section id="tab-predictor" class="tab-content">
+                    <div class="predictor-layout">
+                        <!-- Input Form -->
+                        <div class="predictor-form-panel">
+                            <h3><i class="fa-solid fa-calculator"></i> Product Specifications</h3>
+                            <form id="predictor-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="pred-category">Category</label>
+                                        <div class="select-wrapper">
+                                            <select id="pred-category" required>
+                                                <!-- Injected dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pred-material">Material</label>
+                                        <div class="select-wrapper">
+                                            <select id="pred-material" required>
+                                                <!-- Injected dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="pred-packaging">Packaging Type</label>
+                                        <div class="select-wrapper">
+                                            <select id="pred-packaging" required>
+                                                <option value="None">None</option>
+                                                <option value="Compostable Bag">Compostable Bag</option>
+                                                <option value="Recyclable Cardboard">Recyclable Cardboard</option>
+                                                <option value="Glass Jar">Glass Jar</option>
+                                                <option value="Paper Box">Paper Box</option>
+                                                <option value="Plastic Bag">Plastic Bag</option>
+                                                <option value="Plastic Film">Plastic Film</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pred-certifications">Certifications</label>
+                                        <div class="select-wrapper">
+                                            <select id="pred-certifications" required>
+                                                <!-- Injected dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="pred-country">Manufacturer Country</label>
+                                        <div class="select-wrapper">
+                                            <select id="pred-country" required>
+                                                <option value="USA">USA</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="Portugal">Portugal</option>
+                                                <option value="Brazil">Brazil</option>
+                                                <option value="India">India</option>
+                                                <option value="China">China</option>
+                                                <option value="Vietnam">Vietnam</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="France">France</option>
+                                                <option value="Kenya">Kenya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pred-price">Price ($ USD)</label>
+                                        <input type="number" id="pred-price" min="0.01" step="0.01" value="29.99" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pred-carbon">Carbon Footprint (g CO2e)</label>
+                                    <input type="range" id="pred-carbon" min="10" max="6000" step="50" value="800">
+                                    <div class="range-value"><span id="pred-carbon-val">800</span> g</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pred-water">Water Usage (Liters)</label>
+                                    <input type="range" id="pred-water" min="1" max="8000" step="50" value="1500">
+                                    <div class="range-value"><span id="pred-water-val">1500</span> L</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pred-recycled">Recycled Content Percentage (%)</label>
+                                    <input type="range" id="pred-recycled" min="0" max="100" step="5" value="50">
+                                    <div class="range-value"><span id="pred-recycled-val">50</span>%</div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-chart-line"></i> Predict Sustainability</button>
+                            </form>
+                        </div>
+
+                        <!-- Results Panel -->
+                        <div class="predictor-results-panel">
+                            <h3><i class="fa-solid fa-square-poll-vertical"></i> Predicted Eco Performance</h3>
+                            <div class="prediction-empty-state" id="prediction-empty-state">
+                                <i class="fa-solid fa-calculator-pulse"></i>
+                                <h4>Specify parameters and click 'Predict Sustainability' to compute model scores.</h4>
+                            </div>
+
+                            <div class="prediction-results-card" id="prediction-results-card" style="display: none;">
+                                <div class="pred-overall-header">
+                                    <div>
+                                        <h4>Overall Sustainability Index</h4>
+                                        <p>Fitted regression predictions on random forest models</p>
+                                    </div>
+                                    <div class="pred-score-large" id="pred-overall-score">-</div>
+                                </div>
+
+                                <div class="pred-metrics-grid">
+                                    <div class="pred-metric-card">
+                                        <h5>Predicted Eco Score</h5>
+                                        <div class="pred-subscore" id="pred-eco-score">-</div>
+                                        <div class="subscore-stars" id="pred-eco-stars"></div>
+                                    </div>
+                                    <div class="pred-metric-card">
+                                        <h5>Predicted Carbon Score</h5>
+                                        <div class="pred-subscore" id="pred-carbon-score">-</div>
+                                        <div class="subscore-stars" id="pred-carbon-stars"></div>
+                                    </div>
+                                    <div class="pred-metric-card">
+                                        <h5>Recyclability Score</h5>
+                                        <div class="pred-subscore" id="pred-recyclability-score">-</div>
+                                        <div class="subscore-stars" id="pred-recyclability-stars"></div>
+                                    </div>
+                                    <div class="pred-metric-card">
+                                        <h5>Packaging Score</h5>
+                                        <div class="pred-subscore" id="pred-packaging-score">-</div>
+                                        <div class="subscore-stars" id="pred-packaging-stars"></div>
+                                    </div>
+                                </div>
+
+                                <div class="prediction-explanation">
+                                    <h5><i class="fa-solid fa-circle-question"></i> AI Recommendation Insights</h5>
+                                    <ul id="prediction-reasons-list">
+                                        <!-- Injected dynamically -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. WEIGHTS CONFIG TAB -->
+                <section id="tab-weights" class="tab-content">
+                    <div class="weights-detail-panel">
+                        <h3><i class="fa-solid fa-sliders"></i> Global Hybrid Recommendation Settings</h3>
+                        <p class="description">Tune the recommendation engine weights to match specific corporate values or user preferences. Adjusting these weights changes how the hybrid score fusion evaluates relevance vs sustainability.</p>
+                        
+                        <div class="weights-tuning-container">
+                            <div class="weight-control-row">
+                                <div class="weight-info-col">
+                                    <h4>Semantic Query Relevance</h4>
+                                    <p>How closely the product matches the natural language search terms semantically. Relies on the similarity of SentenceTransformer embeddings generated by Sentence-BERT.</p>
+                                </div>
+                                <div class="weight-slider-col">
+                                    <input type="range" id="global-weight-semantic" min="0" max="100" value="40">
+                                    <span class="slider-badge" id="global-weight-semantic-badge">40%</span>
+                                </div>
+                            </div>
+
+                            <div class="weight-control-row">
+                                <div class="weight-info-col">
+                                    <h4>Personalized User History Match</h4>
+                                    <p>Relevance based on the user's past clicks and view history. Computes the user's vector interest profile and queries nearby catalog items using the FAISS index.</p>
+                                </div>
+                                <div class="weight-slider-col">
+                                    <input type="range" id="global-weight-personal" min="0" max="100" value="30">
+                                    <span class="slider-badge" id="global-weight-personal-badge">30%</span>
+                                </div>
+                            </div>
+
+                            <div class="weight-control-row">
+                                <div class="weight-info-col">
+                                    <h4>Product Sustainability Rank</h4>
+                                    <p>Importance of the product's actual eco indices (Eco Score, carbon footprint, packaging, recyclability). Higher weights prioritize green products regardless of search queries or history.</p>
+                                </div>
+                                <div class="weight-slider-col">
+                                    <input type="range" id="global-weight-sustainability" min="0" max="100" value="30">
+                                    <span class="slider-badge" id="global-weight-sustainability-badge">30%</span>
+                                </div>
+                            </div>
+
+                            <div class="weights-visualizer-card">
+                                <h5>Current Weight Distribution</h5>
+                                <div class="weights-bar-visualization">
+                                    <div class="weight-bar-segment semantic" id="vis-weight-semantic" style="width: 40%">Semantic (40%)</div>
+                                    <div class="weight-bar-segment personal" id="vis-weight-personal" style="width: 30%">Personalized (30%)</div>
+                                    <div class="weight-bar-segment sustainability" id="vis-weight-sustainability" style="width: 30%">Sustainability (30%)</div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" id="btn-save-global-weights"><i class="fa-solid fa-circle-check"></i> Apply and Store Global Weights</button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Explanation Modal -->
+    <div class="modal-overlay" id="explanation-modal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modal-product-name">Product Name Details</h3>
+                    <span class="modal-category-badge" id="modal-category">Category</span>
+                </div>
+                <button class="modal-close" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-score-panel">
+                    <div class="large-index-circle">
+                        <span id="modal-sustainability-index">-</span>
+                        <span class="circle-label">Sustainability Index</span>
+                    </div>
+                    <div class="modal-metrics-grid">
+                        <div class="modal-metric">
+                            <span class="metric-label">Eco Score</span>
+                            <span class="metric-value" id="modal-eco-score">-</span>
+                        </div>
+                        <div class="modal-metric">
+                            <span class="metric-label">Carbon Footprint Score</span>
+                            <span class="metric-value" id="modal-carbon-score">-</span>
+                        </div>
+                        <div class="modal-metric">
+                            <span class="metric-label">Recyclability Score</span>
+                            <span class="metric-value" id="modal-recyclability-score">-</span>
+                        </div>
+                        <div class="modal-metric">
+                            <span class="metric-label">Packaging Score</span>
+                            <span class="metric-value" id="modal-packaging-score">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-stats-list">
+                    <div class="modal-stat-item">
+                        <i class="fa-solid fa-cloud-arrow-down icon-carbon"></i>
+                        <div>
+                            <h5>Carbon Footprint</h5>
+                            <p id="modal-carbon-raw">-</p>
+                        </div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <i class="fa-solid fa-droplet icon-water"></i>
+                        <div>
+                            <h5>Water Usage</h5>
+                            <p id="modal-water-raw">-</p>
+                        </div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <i class="fa-solid fa-recycle icon-recycled"></i>
+                        <div>
+                            <h5>Recycled Material Content</h5>
+                            <p id="modal-recycled-raw">-</p>
+                        </div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <i class="fa-solid fa-box icon-pkg"></i>
+                        <div>
+                            <h5>Packaging Type</h5>
+                            <p id="modal-packaging-raw">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explanation-reasons-wrapper">
+                    <h4><i class="fa-solid fa-circle-nodes"></i> Why is this product recommended?</h4>
+                    <ul id="modal-reasons-list">
+                        <!-- Injected dynamically -->
+                    </ul>
+                </div>
+
+                <!-- Similar Products Recommendations -->
+                <div class="similar-products-section">
+                    <h4><i class="fa-solid fa-tags"></i> Similar Sustainable Alternatives</h4>
+                    <div class="similar-products-grid" id="modal-similar-products">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="app.js"></script>
+</body>
+</html>
