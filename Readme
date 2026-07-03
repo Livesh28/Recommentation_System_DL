@@ -1,0 +1,249 @@
+🌱 EcoPulse AI – Sustainable Product Recommendation System
+
+An AI-powered Sustainable Product Recommendation System that recommends environmentally friendly products based on user preferences, predicts carbon footprint, and provides sustainability insights using Machine Learning and Semantic Search.
+
+📌 Project Overview
+
+EcoPulse AI helps users discover sustainable alternatives to products by analyzing:
+
+🌍 Carbon footprint
+♻️ Sustainability score
+🏷️ Product category
+💰 Price
+⭐ User preferences
+🤖 AI-based semantic similarity
+
+The system combines Machine Learning, Deep Learning embeddings, and FastAPI to provide intelligent product recommendations.
+
+🚀 Features
+✅ AI Recommendation Engine
+Semantic product search using Sentence Transformers
+FAISS similarity search
+Personalized recommendations
+Related product suggestions
+✅ Carbon Footprint Prediction
+
+Predicts environmental impact using a trained Machine Learning model.
+
+Model:
+
+Random Forest Regressor
+
+Output:
+
+Estimated Carbon Emission
+Sustainability Analysis
+✅ Sustainability Score
+
+Calculates product sustainability based on
+
+Carbon emission
+Eco-friendly materials
+Product category
+Sustainability metrics
+✅ Product Search
+
+Search products by
+
+Product Name
+Category
+Sustainability
+Similar Products
+✅ FastAPI Backend
+
+REST APIs for
+
+Product Recommendations
+Product Search
+Sustainability Prediction
+Carbon Prediction
+✅ Interactive Dashboard
+
+Frontend includes
+
+Product Cards
+Recommendation Results
+Sustainability Metrics
+Carbon Emission Visualization
+🧠 AI Models Used
+1. Sentence Transformer
+
+Used for semantic product understanding.
+
+Purpose
+
+Text Embeddings
+Similar Product Search
+2. FAISS
+
+Facebook AI Similarity Search
+
+Purpose
+
+Fast nearest neighbor search
+Large-scale recommendation
+3. Random Forest Regression
+
+Predicts
+
+Carbon Footprint
+
+Saved Model
+
+carbon_credit_model.joblib
+4. Sustainability Recommendation Model
+
+Saved as
+
+eco_model.joblib
+🏗 Project Structure
+recommendation-system/
+
+│
+├── static/
+│
+├── app.py                      # FastAPI Application
+├── recommender.py              # Recommendation Engine
+├── bootstrap.py                # Data Loading
+│
+├── processed_products.csv
+├── product_embeddings.npy
+├── interactions.csv
+│
+├── carbon_credit_model.joblib
+├── eco_model.joblib
+├── preprocessor.joblib
+├── feature_columns.joblib
+│
+├── faiss_product_index.bin
+│
+└── README.md
+⚙️ Tech Stack
+Backend
+Python
+FastAPI
+Uvicorn
+Machine Learning
+Scikit-Learn
+TensorFlow
+Sentence Transformers
+FAISS
+Data Processing
+Pandas
+NumPy
+Visualization
+Matplotlib
+Seaborn
+Model Storage
+Joblib
+📦 Installation
+
+Clone repository
+
+git clone https://github.com/yourusername/recommendation-system.git
+
+Go to project
+
+cd recommendation-system
+
+Install dependencies
+
+pip install -r requirements.txt
+▶️ Run the Project
+
+Start FastAPI server
+
+uvicorn app:app --reload
+
+Server
+
+http://127.0.0.1:8000
+
+Swagger API
+
+http://127.0.0.1:8000/docs
+📊 Dataset
+
+The project uses
+
+Product Information
+Sustainability Scores
+Carbon Footprint Values
+Product Categories
+User Interaction Data
+
+Files
+
+processed_products.csv
+interactions.csv
+🔍 Recommendation Workflow
+User Query
+      │
+      ▼
+Sentence Transformer
+      │
+      ▼
+Embedding Vector
+      │
+      ▼
+FAISS Similarity Search
+      │
+      ▼
+Recommended Products
+      │
+      ▼
+Carbon Prediction
+      │
+      ▼
+Sustainability Analysis
+      │
+      ▼
+Display Results
+📁 Saved Models
+Model	Purpose
+carbon_credit_model.joblib	Carbon Prediction
+eco_model.joblib	Sustainability Prediction
+preprocessor.joblib	Feature Processing
+feature_columns.joblib	Feature Encoding
+faiss_product_index.bin	Semantic Search Index
+📈 Machine Learning Pipeline
+Dataset
+    │
+    ▼
+Preprocessing
+    │
+    ▼
+Feature Engineering
+    │
+    ▼
+Model Training
+    │
+    ▼
+Sentence Embeddings
+    │
+    ▼
+FAISS Index Creation
+    │
+    ▼
+Recommendation API
+📡 API Endpoints
+Method	Endpoint	Description
+GET	/	Home
+GET	/recommend	Get Recommendations
+GET	/search	Search Products
+POST	/predict-carbon	Predict Carbon Footprint
+GET	/products	List Products
+
+(Update these endpoints if your app.py exposes different routes.)
+
+🎯 Future Improvements
+User Authentication
+Personalized Recommendation History
+Real-time Product Database
+Explainable AI (XAI)
+Hybrid Recommendation System
+Deep Learning Ranking Model
+Mobile Application
+Cloud Deployment
+Product Image Recognition
+Carbon Emission Dashboard
